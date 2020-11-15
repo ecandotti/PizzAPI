@@ -1,27 +1,45 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
-import routes from './src/routes/crmRoutes'
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const app = express()
-const PORT = 3000
+const ResidenceRoutes = express.Router()
 
-// Connexion à Mongoose
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/CRMdb', { useNewUrlParser: true })
+const PORT = 3001
+let Residence = require('./residence.model')
 
-// BodyParser
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+mongoose.connect('mongodb://localhost/PizzApp', { useNewUrlParser: true, useUnifiedTopology: true })
 
-routes(app)
+const connection = mongoose.connection;connection.once('open', function() {
+    console.log("MongoDB database connection established successfully")
+})
 
-app.use(express.static('public')) //Donner l'acces à des fichiers statics
+ResidenceRoutes.route('/')
+    .get(function(req, res) {
+        Residence.find(function(err, todos) {
+            if (err) {
+                console.log(err)
+            } else {
+                res.json(todos)
+            }
+        })
+    })
 
-app.get('/', (req, res) => 
-    res.send('Serveur Node & Express sur port ' + PORT)
-)
+ResidenceRoutes.route('/addResidence')
+    .post(function(req, res) {
+        let residence = new Residence(req.body)
+        console.log(residence)
+        residence.save()
+            .then(residence => {
+                res.status(200).json({'residence': 'residence added successfully'})
+            })
+            .catch(err => {
+                res.status(400).send('adding new residence failed')
+            })
+    })
 
-app.listen(PORT, () => 
-    console.log('Votre serveur est sur le port ' + PORT)
-)
+app.use('/residences', ResidenceRoutes)
+app.listen(PORT, function() {
+    console.log("Server is running on Port: " + PORT)
+})
