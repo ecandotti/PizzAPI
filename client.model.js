@@ -5,14 +5,15 @@ const Schema = mongoose.Schema
 let Client = new Schema({
     cli_name: {
         type: String,
-        required: [true, 'Rentrer un nom']
+        required: 'Entrer un nom'
     },
     cli_address: {
         type: String,
-        required: [true, 'Rentrer une adresse']
+        required: 'Entrer une adresse'
     },
-    res_info: {
-        type: String
+    cli_info: {
+        type: String,
+        required: 'Entrer une info'
     },
     created_date: {
         type: Date,
