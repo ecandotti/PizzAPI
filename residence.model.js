@@ -16,7 +16,7 @@ let Residence = new Schema({
     },
     res_info: {
         type: String,
-        required: 'Entrer une info'
+        required: 'Entrer une information'
     },
     created_date: {
         type: Date,
