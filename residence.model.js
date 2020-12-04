@@ -5,17 +5,18 @@ const Schema = mongoose.Schema
 let Residence = new Schema({
     res_name: {
         type: String,
-        required: true
+        required: 'Entrer un nom'
     },
     res_address: {
         type: String,
-        required: true
+        required: 'Entrer une adresse'
     },
     res_code: {
         type: String
     },
     res_info: {
-        type: String
+        type: String,
+        required: 'Entrer une info'
     },
     created_date: {
         type: Date,
