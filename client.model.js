@@ -13,7 +13,11 @@ let Client = new Schema({
     },
     cli_info: {
         type: String,
-        required: 'Entrer une info'
+        required: 'Entrer une information'
+    },
+    isClient: {
+        type: Boolean,
+        default: true
     },
     created_date: {
         type: Date,
