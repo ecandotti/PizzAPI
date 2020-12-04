@@ -47,11 +47,11 @@ ResidenceRoutes.route('/add')
 /*          ROUTE CLIENT         */
 ClientRoutes.route('/list')
     .get(function(req, res) {
-        client.find(function(err, todos) {
+        Client.find(function(err, list_cli) {
             if (err) {
                 console.log(err)
             } else {
-                res.json(todos)
+                res.json(list_cli)
             }
         })
     })
@@ -59,7 +59,7 @@ ClientRoutes.route('/list')
 ClientRoutes.route('/add')
     .post(function(req, res) {
         let client = new Client(req.body)
-        console.log(req)
+        console.log(client)
         client.save()
             .then(client => {
                 res.status(200).json({'client': 'added successfully'})
