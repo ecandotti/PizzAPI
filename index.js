@@ -6,7 +6,7 @@ const app = express()
 const ResidenceRoutes = express.Router()
 const ClientRoutes = express.Router()
 
-const PORT = 8181
+const PORT = process.env.PORT || 3000
 let Residence = require('./residence.model')
 let Client = require('./client.model')
 
