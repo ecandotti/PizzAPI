@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('corse')
 const mongoose = require('mongoose')
 
 const app = express()
@@ -11,6 +12,7 @@ let Residence = require('./residence.model')
 let Client = require('./client.model')
 
 app.use(bodyParser.json())
+app.use(cors())
 mongoose.connect('mongodb+srv://pizzAdmin:BAISETAMER69@cluster0.eifrg.mongodb.net/PizzAPPdb?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const connection = mongoose.connection;connection.once('open', function() {
