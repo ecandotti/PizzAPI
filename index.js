@@ -11,7 +11,7 @@ let Residence = require('./residence.model')
 let Client = require('./client.model')
 
 app.use(bodyParser.json())
-mongoose.connect('mongodb://localhost/PizzApp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://pizzAdmin:BAISETAMER69@cluster0.eifrg.mongodb.net/PizzAPPdb?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const connection = mongoose.connection;connection.once('open', function() {
     console.log("Connexion à la base de donnée MongoDB réussie")
