@@ -13,7 +13,8 @@ app.use(bodyParser.json())
 app.use(cors())
 mongoose.connect('mongodb+srv://pizzAdmin:BAISETAMER69@cluster0.eifrg.mongodb.net/PizzAPPdb?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 
-const connection = mongoose.connection;connection.once('open', function() {
+const connection = mongoose.connection
+connection.once('open', function() {
     console.log("Connexion à la base de donnée MongoDB réussie")
 })
 
