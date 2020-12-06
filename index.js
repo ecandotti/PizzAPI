@@ -4,7 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 const app = express()
-const Contact = express.Router()
+const ContactRoutes = express.Router()
 
 const PORT = process.env.PORT || 3000
 let Contact = require('./contact.model')
