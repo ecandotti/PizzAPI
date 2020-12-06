@@ -4,12 +4,10 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 const app = express()
-const ResidenceRoutes = express.Router()
-const ClientRoutes = express.Router()
+const Contact = express.Router()
 
 const PORT = process.env.PORT || 3000
-let Residence = require('./residence.model')
-let Client = require('./client.model')
+let Contact = require('./contact.model')
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -19,10 +17,10 @@ const connection = mongoose.connection;connection.once('open', function() {
     console.log("Connexion à la base de donnée MongoDB réussie")
 })
 
-/*          ROUTE RESIDENCE         */
-ResidenceRoutes.route('/list')
+/*          ROUTE CONTACT         */
+ContactRoutes.route('/list')
     .get(function(req, res) {
-        Residence.find(function(err, list_res) {
+        Contact.find(function(err, list_res) {
             if (err) {
                 console.log(err)
             } else {
@@ -31,50 +29,22 @@ ResidenceRoutes.route('/list')
         })
     })
 
-ResidenceRoutes.route('/add')
+ContactRoutes.route('/add')
     .post(function(req, res) {
-        let residence = new Residence(req.body)
-        console.log(residence)
-        residence.save()
-            .then(residence => {
-                res.status(200).json({'residence': 'added successfully'})
+        let contact = new Contact(req.body)
+        console.log(contact)
+        contact.save()
+            .then(contact => {
+                res.status(200).json({'contact': 'added successfully'})
                 console.log('saved')
             })
             .catch(err => {
-                res.status(400).json({'residence': err})
+                res.status(400).json({'contact': err})
                 console.log('no saved')
             })
     })
 
-/*          ROUTE CLIENT         */
-ClientRoutes.route('/list')
-    .get(function(req, res) {
-        Client.find(function(err, list_cli) {
-            if (err) {
-                console.log(err)
-            } else {
-                res.json(list_cli)
-            }
-        })
-    })
-
-ClientRoutes.route('/add')
-    .post(function(req, res) {
-        let client = new Client(req.body)
-        console.log(client)
-        client.save()
-            .then(client => {
-                res.status(200).json({'client': 'added successfully'})
-                console.log('saved')
-            })
-            .catch(err => {
-                res.status(400).json({'client': err})
-                console.log('no saved')
-            })
-    })
-
-app.use('/residences', ResidenceRoutes)
-app.use('/clients', ClientRoutes)
+app.use('/contacts', ContactRoutes)
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT)
