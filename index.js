@@ -20,7 +20,7 @@ connection.once('open', function() {
 
 /*          ROUTE CONTACT         */
 ContactRoutes.route('/list')
-    .get(function(req, res) {
+    .get((req, res) => {
         Contact.find(function(err, list_res) {
             if (err) {
                 console.log(err)
@@ -30,8 +30,18 @@ ContactRoutes.route('/list')
         })
     })
 
+ContactRoutes.route('/:_id')
+    .get((req, res) => {
+        Contact.findById(req.params._id, (err, contact) => {
+            if(err){
+                res.send(err)
+            }
+            res.json(contact)
+        })
+    })
+
 ContactRoutes.route('/add')
-    .post(function(req, res) {
+    .post((req, res) => {
         let contact = new Contact(req.body)
         console.log(contact)
         contact.save()
