@@ -2,19 +2,23 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-let Residence = new Schema({
-    res_name: {
+let Contact = new Schema({
+    isClient: {
+        type: Boolean,
+        required: "De quel contact s'agit'il ?"
+    },
+    name: {
         type: String,
         required: 'Entrer un nom'
     },
-    res_address: {
+    address: {
         type: String,
         required: 'Entrer une adresse'
     },
-    res_code: {
+    code: {
         type: String
     },
-    res_info: {
+    info: {
         type: String,
         required: 'Entrer une information'
     },
@@ -24,4 +28,4 @@ let Residence = new Schema({
     }
 })
 
-module.exports = mongoose.model('Residence', Residence)
+module.exports = mongoose.model('Contact', Contact)
